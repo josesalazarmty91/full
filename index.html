@@ -2148,7 +2148,7 @@
                     uiElements.operatorResultsList.innerHTML = '';
                     uiElements.operatorSearchNotFoundMessage.classList.add('hidden');
 
-                    if (unitDataCache.assigned_operator_id && unitDataCache.assigned_operator_name) {
+                /*    if (unitDataCache.assigned_operator_id && unitDataCache.assigned_operator_name) {
                         showToast(`Operador asignado: ${unitDataCache.assigned_operator_name}.`, 'info');
                         this.confirmOperator(unitDataCache.assigned_operator_name);
                     } else {
@@ -2159,7 +2159,19 @@
                         } else {
                             allOperatorsCache = [];
                         }
-                    }
+                    }*/
+                   // ... dentro de async confirmPhotoAndContinue() ...
+
+        if (unitDataCache.assigned_operator_id && unitDataCache.assigned_operator_name) {
+            // Caso 1: La unidad SÍ tiene un operador asignado
+            showToast(`Operador asignado: ${unitDataCache.assigned_operator_name}.`, 'info');
+            this.confirmOperator(unitDataCache.assigned_operator_name);
+        } else {
+            // Caso 2: La unidad NO tiene operador. Asignamos el default "Operador".
+            showToast('Unidad sin operador. Asignando "Operador" por default.', 'info');
+            this.confirmOperator("Operador"); // <-- ¡Esta es la magia!
+        }
+// ...
                 },
                 async finalizeRegistration() {
                     if (!capturedPhotoBlob) { showToast('Falta la evidencia fotográfica.', 'error'); return; }
